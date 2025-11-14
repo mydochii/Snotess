@@ -1,40 +1,91 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loading...</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menyiapkan video…</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding-top: 120px;
-    }
-    .loading {
-      font-size: 20px;
-      opacity: 0.8;
-    }
+    body{font-family:Arial,Helvetica,sans-serif;background:#071028;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+    .box{max-width:420px;width:92%;text-align:center;padding:22px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.25));box-shadow:0 8px 40px rgba(0,0,0,0.6)}
+    h1{font-size:20px;margin:6px 0}
+    p{margin:6px 0 14px;color:#d0d8e6}
+    .count{font-size:32px;font-weight:700;margin:8px 0}
+    .btn{display:inline-block;margin-top:12px;padding:10px 16px;border-radius:10px;background:#ffb300;color:#000;text-decoration:none;font-weight:700}
+    .small{font-size:12px;color:#bfc7d6;margin-top:8px}
   </style>
 </head>
 <body>
-
-  <h2>Sedang membuka video...</h2>
-  <p class="loading">Tunggu sebentar ya sayang 💛</p>
+  <div class="box">
+    <h1>Menyiapkan video...</h1>
+    <p>Kami akan menayangkan iklan singkat, lalu lanjut ke video.</p>
+    <div class="count" id="count">5</div>
+    <a id="skip" class="btn" href="#">Lanjut Sekarang</a>
+    <div class="small">Jika tombol skip tidak bekerja, tunggu hitung mundur.</div>
+  </div>
 
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const to = urlParams.get("to");
-  const ad = urlParams.get("ad");
+  // Iklan tetap (sesuai permintaan)
+  const FIXED_AD = "https://otieu.com/4/9973770";
 
-  // Redirect ke halaman iklan dulu
-  if(ad){
-    window.location.href = ad + "?url=" + encodeURIComponent(to);
-  } else {
+  // Ambil param ?to=...
+  const params = new URLSearchParams(window.location.search);
+  const to = params.get('to') ? decodeURIComponent(params.get('to')) : '/';
+
+  // Tombol skip langsung ke video (buka di tab baru)
+  const skipBtn = document.getElementById('skip');
+  skipBtn.href = to;
+  skipBtn.target = "_blank";
+  skipBtn.rel = "noopener";
+
+  const countEl = document.getElementById('count');
+  let seconds = 5; // ganti kalau mau lebih cepat/lambat
+
+  // Coba buka iklan di tab baru (tergantung izin popup)
+  function tryOpenAd(url){
+    try {
+      const w = window.open(url, '_blank', 'noopener');
+      return w !== null;
+    } catch(e){
+      return false;
+    }
+  }
+
+  // Jika ad sama dengan target, langsung redirect ke video
+  if(to === FIXED_AD){
     window.location.href = to;
+  } else {
+    const opened = tryOpenAd(FIXED_AD);
+
+    if(opened){
+      // jika berhasil buka di tab baru -> hitung mundur di halaman ini kemudian redirect ke video
+      const iv = setInterval(()=>{
+        seconds--;
+        countEl.textContent = seconds;
+        if(seconds <= 0){
+          clearInterval(iv);
+          // pindah tab ini ke video
+          window.location.href = to;
+        }
+      },1000);
+    } else {
+      // popup kemungkinan diblokir -> fallback:
+      // 1) buka iklan di same tab
+      // 2) lalu setelah delay coba buka video di tab baru (atau redirect)
+      setTimeout(()=> {
+        window.location.href = FIXED_AD;
+      }, 300); // buka ad cepat
+
+      // coba buka video di tab baru setelah cukup waktu (harusnya pengguna menutup iklan/selesai)
+      setTimeout(()=> {
+        try {
+          window.open(to, '_blank', 'noopener');
+        } catch(e) {
+          // jika gagal, redirect current tab ke video
+          window.location.href = to;
+        }
+      }, (seconds + 6) * 1000); // tunggu lebih lama dari hitung mundur
+    }
   }
 </script>
-
 </body>
 </html>
