@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> KISAH REMAJA TERBARU </title>
+  <title>🔥 KISAH REMAJA TERBARU 🔥</title>
   <style>
     body {
       font-family: 'Poppins', Arial, sans-serif;
@@ -44,58 +44,43 @@
 </head>
 <body>
 
-<header> KISAH REMAJA TERBARU </header>
+<header>🔥 KISAH REMAJA TERBARU 🔥</header>
 
 <div class="note">
-  <h3>Note 14/11/2025</h3>
-  <p>Pemandangan hari ini </p>
+  <h3>Note Hari Ini</h3>
+  <p>Pemandangan hari ini ✨</p>
   <div id="links"></div>
 </div>
 
-<footer> Jangan lupa share ya sayang </footer>
+<footer>💛 Jangan lupa share ya sayang 💛</footer>
 
 <script>
-  const list = [
-    "AD:https://otieu.com/4/9973770",
-
+  const links = [
     "https://lnk.ink/Vid33yyv1d.short.gy.Difb1",
-    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Fibb1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Fibb1",
     "https://lnk.ink/Vid33yyv1d.short.gy.Zcid1",
     "https://lnk.ink/Vid33yyv1d.short.gy.Cufb1",
-    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Vcyb1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Vcyb1",
     "https://lnk.ink/Vid33yyv1d.short.gy.Pnfy1",
-    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Sicle1",
-    "https://lnk.ink/Vid33yyv1d.short.gy.Fgbj1",
-    "https://lnk.ink/Vid33yyv1d.short.gy.Atvj1",
-    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Hxor1",
-    "https://lnk.ink/Vid33yyv1d.short.gy.Aoxb1",
-    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Ivyb1"
+    "https://lnk.ink/Vid33yyv1d.short.gy.Sicle1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Fgbj1"
   ];
 
-  const linksDiv = document.getElementById("links");
-  let currentAd = "https://otieu.com/4/9973770";
+  const div = document.getElementById("links");
 
-  list.forEach(item => {
-    if(item.startsWith("AD:")){
-      currentAd = item.replace("AD:","");
-      return;
-    }
-
-    if(item.startsWith("JEB:")){
-      const real = item.replace("JEB:","");
-      const a = document.createElement("a");
-      a.href = real;
-      a.textContent = real;  // <-- TANPA (redirect)
-      linksDiv.appendChild(a);
-      return;
-    }
-
-    const video = item;
+  links.forEach(v => {
     const a = document.createElement("a");
-    a.href = "interstitial.html?to=" + encodeURIComponent(video) + "&ad=" + encodeURIComponent(currentAd);
-    a.textContent = video;  // <-- Teks video biasa
-    linksDiv.appendChild(a);
+    a.textContent = v;
+    a.href = "interstitial.html?to=" + encodeURIComponent(v);
+    div.appendChild(a);
   });
+
+  // AUTO BALIK KE VIDEO SETELAH IKLAN
+  const comeback = sessionStorage.getItem("video_target");
+  if (comeback) {
+    sessionStorage.removeItem("video_target");
+    window.location.href = comeback;
+  }
 </script>
 
 </body>
