@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> KISAH REMAJA TERBARU </title>
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+    }
+    header {
+      background: linear-gradient(90deg, rgba(255, 87, 34, 0.9), rgba(255, 193, 7, 0.9));
+      padding: 16px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 22px;
+    }
+    .note {
+      background: rgba(0,0,0,0.3);
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(8px);
+    }
+    a {
+      display: block;
+      color: #ffeb3b;
+      margin: 6px 0;
+      text-decoration: none;
+    }
+    a:hover { color: #fff176; }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+<header> KISAH REMAJA TERBARU </header>
+
+<div class="note">
+  <h3>Note 14/11/2025</h3>
+  <p>Pemandangan hari ini </p>
+  <div id="links"></div>
+</div>
+
+<footer> Jangan lupa share ya sayang </footer>
+
+<script>
+  const list = [
+    "AD:https://otieu.com/4/9973770",
+
+    "https://lnk.ink/Vid33yyv1d.short.gy.Difb1",
+    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Fibb1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Zcid1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Cufb1",
+    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Vcyb1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Pnfy1",
+    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Sicle1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Fgbj1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Atvj1",
+    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Hxor1",
+    "https://lnk.ink/Vid33yyv1d.short.gy.Aoxb1",
+    "JEB:https://lnk.ink/Vid33yyv1d.short.gy.Ivyb1"
+  ];
+
+  const linksDiv = document.getElementById("links");
+  let currentAd = "https://otieu.com/4/9973770";
+
+  list.forEach(item => {
+    if(item.startsWith("AD:")){
+      currentAd = item.replace("AD:","");
+      return;
+    }
+
+    if(item.startsWith("JEB:")){
+      const real = item.replace("JEB:","");
+      const a = document.createElement("a");
+      a.href = real;
+      a.textContent = real;  // <-- TANPA (redirect)
+      linksDiv.appendChild(a);
+      return;
+    }
+
+    const video = item;
+    const a = document.createElement("a");
+    a.href = "interstitial.html?to=" + encodeURIComponent(video) + "&ad=" + encodeURIComponent(currentAd);
+    a.textContent = video;  // <-- Teks video biasa
+    linksDiv.appendChild(a);
+  });
+</script>
+
+</body>
+</html>
